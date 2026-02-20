@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pink Dreams - Full Product Documentation</title>
+  <meta
+    name="description"
+    content="Complete technical and operational documentation for Pink Dreams eCommerce solution."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open sidebar">Menu</button>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>
+          <h1>Pink Dreams</h1>
+          <p>Product Documentation v1.0</p>
+        </div>
+      </div>
+
+      <div class="search-box">
+        <input id="navSearch" type="text" placeholder="Search documentation..." />
+      </div>
+
+      <nav id="docNav" class="doc-nav">
+        <div class="group">
+          <button class="group-btn active">Getting Started <span>▾</span></button>
+          <div class="group-links open">
+            <a href="#introduction">Introduction</a>
+            <a href="#system-requirements">System Requirements</a>
+            <a href="#architecture-overview">Architecture Overview</a>
+            <a href="#technology-stack">Technology Stack</a>
+            <a href="#project-structure">Project Structure</a>
+            <a href="#configuration">Configuration</a>
+            <a href="#run-local">Run on Local Server</a>
+            <a href="#run-production">Run on Live/Production Server</a>
+          </div>
+        </div>
+
+        <div class="group">
+          <button class="group-btn active">Core Platform <span>▾</span></button>
+          <div class="group-links open">
+            <a href="#authentication-flow">Authentication Flow</a>
+            <a href="#staff-roles-permissions">Staff Roles & Permissions</a>
+            <a href="#crud-overview">Product/Category/Attributes/Coupon/Brand/Blog CRUD</a>
+            <a href="#checkout-payment-engine">Checkout & Payment Engine</a>
+            <a href="#orders-lifecycle">Orders Lifecycle</a>
+            <a href="#notification-engine">Notification Engine</a>
+            <a href="#settings-branding">Settings & Branding Engine</a>
+            <a href="#analytics-reporting">Analytics & Reporting</a>
+          </div>
+        </div>
+
+        <div class="group">
+          <button class="group-btn active">Production Ops <span>▾</span></button>
+          <div class="group-links open">
+            <a href="#security-hardening">Security Hardening</a>
+            <a href="#performance-scaling">Performance & Scaling</a>
+            <a href="#backup-recovery">Backup & Recovery</a>
+            <a href="#monitoring-logs">Monitoring & Logs</a>
+            <a href="#seo-content">SEO & Content Strategy</a>
+            <a href="#troubleshooting">Troubleshooting</a>
+            <a href="#faq">FAQ</a>
+            <a href="#support-handover">Support & Handover</a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <p class="tag">Enterprise-Grade Documentation</p>
+        <h2>Pink Dreams eCommerce Platform Documentation</h2>
+        <p>
+          This documentation is designed for marketplace buyers, client teams, and technical operators.
+          It explains setup, architecture, workflows, production operations, and scaling strategy in one place.
+        </p>
+        <div class="badges">
+          <span>Next.js 14</span>
+          <span>Node.js + Express</span>
+          <span>MongoDB (Mongoose)</span>
+          <span>Stripe + PayPal + COD + Bank Transfer</span>
+          <span>Socket.IO Notifications</span>
+          <span>RBAC Staff Panel</span>
+        </div>
+      </section>
+
+      <section id="introduction" class="section">
+        <h3>Introduction</h3>
+        <p>
+          Pink Dreams is a complete commerce platform with two synchronized layers:
+          <strong>customer storefront</strong> and <strong>administrative control panel</strong>.
+        </p>
+        <p>
+          The platform is production-oriented: it supports multi-payment checkout, order workflows,
+          receipt verification, role-based access control, real-time admin notifications, and dynamic settings.
+        </p>
+        <div class="note">
+          <strong>Business positioning:</strong> This project is suitable for direct commercial resale,
+          client delivery, or white-label adaptation.
+        </div>
+      </section>
+
+      <section id="system-requirements" class="section">
+        <h3>System Requirements</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Recommended</th>
+              <th>Minimum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Node.js</td>
+              <td>18.x / 20.x LTS</td>
+              <td>16.x</td>
+            </tr>
+            <tr>
+              <td>MongoDB</td>
+              <td>Atlas M10+</td>
+              <td>Local MongoDB 5+</td>
+            </tr>
+            <tr>
+              <td>RAM</td>
+              <td>4 GB+</td>
+              <td>2 GB</td>
+            </tr>
+            <tr>
+              <td>Storage</td>
+              <td>SSD, 20 GB+</td>
+              <td>10 GB</td>
+            </tr>
+            <tr>
+              <td>OS</td>
+              <td>Ubuntu 22.04 / Windows 11</td>
+              <td>Ubuntu 20.04 / Windows 10</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="architecture-overview" class="section">
+        <h3>Architecture Overview</h3>
+        <p>
+          The system follows a decoupled API architecture:
+        </p>
+        <ul>
+          <li><strong>Frontend:</strong> Next.js App Router, client/server rendering mix, context-based app state.</li>
+          <li><strong>Backend:</strong> Express REST APIs with modular routes/controllers/middleware.</li>
+          <li><strong>Database:</strong> MongoDB with Mongoose schemas for domain models.</li>
+          <li><strong>Realtime:</strong> Socket.IO for admin notification events.</li>
+          <li><strong>Media:</strong> Local upload + cloud integration support (Cloudinary-ready patterns).</li>
+        </ul>
+      </section>
+
+      <section id="technology-stack" class="section">
+        <h3>Technology Stack</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Technology</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Frontend</td>
+              <td>Next.js 14, React 18, Tailwind</td>
+              <td>Store UI, admin UI, routing, rendering</td>
+            </tr>
+            <tr>
+              <td>Backend</td>
+              <td>Node.js, Express 5</td>
+              <td>REST APIs and business logic</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>MongoDB, Mongoose</td>
+              <td>Structured data models and querying</td>
+            </tr>
+            <tr>
+              <td>Auth</td>
+              <td>JWT + OAuth (Google/Facebook)</td>
+              <td>User and session authentication</td>
+            </tr>
+            <tr>
+              <td>Payments</td>
+              <td>Stripe, PayPal, Offline methods</td>
+              <td>Revenue processing and order capture</td>
+            </tr>
+            <tr>
+              <td>Realtime</td>
+              <td>Socket.IO</td>
+              <td>Admin live notification updates</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="project-structure" class="section">
+        <h3>Project Structure</h3>
+        <pre><code>root/
+  backend/
+    controllers/
+    middleware/
+    models/
+    routes/
+    utils/
+    server.js
+  frontend/
+    app/
+      admin/
+      cart/
+      checkout/
+      orders/
+      product/
+      components/
+      context/
+    package.json
+  upload/
+    images/
+</code></pre>
+      </section>
+
+      <section id="configuration" class="section">
+        <h3>Configuration</h3>
+        <h4>Backend `.env` keys</h4>
+        <pre><code>PORT=
+NODE_ENV=
+MONGODB_URI=
+JWT_SECRET=
+SESSION_SECRET=
+FRONTEND_URL=
+BASE_URL=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CALLBACK_URL=
+FACEBOOK_APP_ID=
+FACEBOOK_APP_SECRET=
+FACEBOOK_CALLBACK_URL=
+
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISHABLE_KEY=
+PAYPAL_CLIENT_ID=
+PAYPAL_CLIENT_SECRET=
+PAYPAL_MODE=
+PAYPAL_BASE_URL=
+
+EMAIL_SERVICE=
+EMAIL_USER=
+EMAIL_APP_PASSWORD=
+EMAIL_FROM=
+RESEND_API_KEY=
+
+SETTINGS_ENCRYPTION_KEY=</code></pre>
+
+        <h4>Frontend `.env` keys</h4>
+        <pre><code>NEXT_PUBLIC_API_URL=
+NODE_ENV=</code></pre>
+      </section>
+
+      <section id="run-local" class="section">
+        <h3>Run on Local Server</h3>
+        <pre><code># Backend
+cd backend
+npm install
+npm run dev
+
+# Frontend
+cd ../frontend
+npm install
+npm run dev</code></pre>
+        <p>
+          Local defaults:
+          <strong>Frontend:</strong> http://localhost:3000 |
+          <strong>Backend:</strong> http://localhost:4000
+        </p>
+      </section>
+
+      <section id="run-production" class="section">
+        <h3>Run on Live/Production Server</h3>
+        <ol>
+          <li>Deploy backend first with production env vars and managed MongoDB.</li>
+          <li>Deploy frontend and set `NEXT_PUBLIC_API_URL` to backend public URL.</li>
+          <li>Set OAuth callback URLs to live domain.</li>
+          <li>Set CORS origins to production domain list only.</li>
+          <li>Enable HTTPS and strict session/cookie security in production.</li>
+        </ol>
+        <div class="warn">
+          <strong>Important:</strong> Never deploy with default secrets or localhost URLs in production.
+        </div>
+      </section>
+
+      <section id="authentication-flow" class="section">
+        <h3>Authentication Flow</h3>
+        <p>
+          Platform supports email/password and OAuth providers. Auth state is managed in frontend context.
+        </p>
+        <ul>
+          <li>JWT token is issued by backend and stored client-side.</li>
+          <li>Route guards decide if modal login is required by route policy.</li>
+          <li>Protected APIs use `Authorization: Bearer &lt;token&gt;`.</li>
+          <li>Token validation failures trigger clean logout state.</li>
+        </ul>
+      </section>
+
+      <section id="staff-roles-permissions" class="section">
+        <h3>Staff Roles & Permissions</h3>
+        <p>
+          Admin module uses permission-based authorization for staff users.
+          Example permissions: `products:read`, `orders:read`, `analytics:read`, `notifications:read`.
+        </p>
+        <ul>
+          <li>Roles are centrally managed and assigned to team members.</li>
+          <li>UI elements are conditionally rendered by permission.</li>
+          <li>Sensitive actions are also protected at API level.</li>
+        </ul>
+      </section>
+
+      <section id="crud-overview" class="section">
+        <h3>Product/Category/Attributes/Coupon/Brand/Blog CRUD</h3>
+        <p>
+          All CRUD domains are available in admin panel and include listing, search/filter, create/update forms,
+          status toggles, and delete controls.
+        </p>
+        <div class="screenshot-guide">
+          <h4>Single Screenshot Requirement (as requested)</h4>
+          <p>
+            Use one combined annotated screenshot from admin panel where sidebar and one CRUD table are visible.
+            Add arrows to: “Add” button, edit action, delete action, filter/search bar.
+          </p>
+          <div class="placeholder">Place Image: /assets/screenshots/crud-overview.png</div>
+        </div>
+      </section>
+
+      <section id="checkout-payment-engine" class="section">
+        <h3>Checkout & Payment Engine</h3>
+        <p>
+          Checkout supports guest/auth flows based on settings and route guard policy.
+        </p>
+        <h4>Supported payment methods</h4>
+        <ul>
+          <li>Stripe</li>
+          <li>PayPal</li>
+          <li>Cash on Delivery</li>
+          <li>Bank Transfer with receipt upload</li>
+        </ul>
+        <h4>Bank Transfer verification</h4>
+        <ul>
+          <li>Customer uploads receipt image</li>
+          <li>Admin sees proof in order details</li>
+          <li>Admin verifies and updates payment state</li>
+        </ul>
+      </section>
+
+      <section id="orders-lifecycle" class="section">
+        <h3>Orders Lifecycle</h3>
+        <p>
+          The order lifecycle is standardized for operational consistency.
+        </p>
+        <ol>
+          <li><strong>pending</strong> – Order created</li>
+          <li><strong>confirmed</strong> – Validated by system/admin</li>
+          <li><strong>processing</strong> – Preparing dispatch</li>
+          <li><strong>shipped</strong> – In transit</li>
+          <li><strong>delivered</strong> – Completed</li>
+          <li><strong>cancelled</strong> – Terminated safely</li>
+        </ol>
+        <p>
+          Orders page includes search, status filter, pagination, and modal details for full context.
+        </p>
+      </section>
+
+      <section id="notification-engine" class="section">
+        <h3>Notification Engine</h3>
+        <p>
+          Admin notifications are powered by realtime socket events plus persistent notification records.
+        </p>
+        <ul>
+          <li>Unread/read visual states</li>
+          <li>Bell indicator sync</li>
+          <li>Bulk selection and deletion workflow</li>
+          <li>Permission-aware notification visibility</li>
+        </ul>
+      </section>
+
+      <section id="settings-branding" class="section">
+        <h3>Settings & Branding Engine</h3>
+        <p>
+          The settings system controls branding assets and operational flags from one place.
+        </p>
+        <ul>
+          <li>Site logo, admin logo, favicon</li>
+          <li>Payment method enable/disable</li>
+          <li>Guest checkout configuration</li>
+          <li>General storefront settings</li>
+        </ul>
+      </section>
+
+      <section id="analytics-reporting" class="section">
+        <h3>Analytics & Reporting</h3>
+        <p>
+          Analytics panel provides sales overview, product performance, category performance, and revenue metrics.
+        </p>
+        <ul>
+          <li>Time-based filters (daily/weekly/monthly/yearly)</li>
+          <li>Revenue trend tracking</li>
+          <li>Order and conversion indicators</li>
+        </ul>
+      </section>
+
+      <section id="security-hardening" class="section">
+        <h3>Security Hardening</h3>
+        <ul>
+          <li>Use strong JWT/session secrets per environment</li>
+          <li>Apply strict CORS origin whitelist</li>
+          <li>Enable HTTPS-only cookies in production</li>
+          <li>Validate all input payloads on backend</li>
+          <li>Restrict admin routes with role/permission middleware</li>
+          <li>Rotate API keys and OAuth secrets periodically</li>
+        </ul>
+      </section>
+
+      <section id="performance-scaling" class="section">
+        <h3>Performance & Scaling</h3>
+        <ul>
+          <li>Use caching for public settings and frequently read queries</li>
+          <li>Optimize image delivery and enforce compressed formats</li>
+          <li>Lazy load non-critical client components</li>
+          <li>Use DB indexes on high-traffic fields (orderId, status, createdAt)</li>
+          <li>Use process manager (PM2/systemd) with health probes</li>
+        </ul>
+      </section>
+
+      <section id="backup-recovery" class="section">
+        <h3>Backup & Recovery</h3>
+        <ul>
+          <li>Automated daily database backups</li>
+          <li>Weekly restore verification on staging</li>
+          <li>Export key business datasets (orders, products, users)</li>
+          <li>Document emergency rollback steps per deployment</li>
+        </ul>
+      </section>
+
+      <section id="monitoring-logs" class="section">
+        <h3>Monitoring & Logs</h3>
+        <ul>
+          <li>Monitor API error rates and slow routes</li>
+          <li>Capture authentication and payment failures</li>
+          <li>Track notification/socket connection health</li>
+          <li>Use structured logs for searchable incident analysis</li>
+        </ul>
+      </section>
+
+      <section id="seo-content" class="section">
+        <h3>SEO & Content Strategy</h3>
+        <ul>
+          <li>Use clean metadata for homepage, product, category, blog pages</li>
+          <li>Publish regular blog content with target keywords</li>
+          <li>Optimize product images and structured content</li>
+          <li>Use internal links between blog and commerce pages</li>
+        </ul>
+      </section>
+
+      <section id="troubleshooting" class="section">
+        <h3>Troubleshooting</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Issue</th>
+              <th>Likely Cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Orders page fails</td>
+              <td>Missing/invalid token</td>
+              <td>Check auth storage, protect routes, verify backend token middleware</td>
+            </tr>
+            <tr>
+              <td>Order details fail after payment</td>
+              <td>Wrong endpoint or missing auth header</td>
+              <td>Use authenticated `/orders/:orderId` calls</td>
+            </tr>
+            <tr>
+              <td>MIME stylesheet error</td>
+              <td>Wrong CSS path/name</td>
+              <td>Ensure `index.html` uses exact existing css file path</td>
+            </tr>
+            <tr>
+              <td>Image not rendering</td>
+              <td>Broken URL normalization</td>
+              <td>Verify `NEXT_PUBLIC_API_URL` + image utility fallback logic</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="faq" class="section">
+        <h3>FAQ</h3>
+        <h4>Can this project be sold commercially?</h4>
+        <p>Yes, this structure is suitable for product resale and client deployment.</p>
+        <h4>Can I rebrand it quickly?</h4>
+        <p>Yes, branding is centralized in settings with logo and visual controls.</p>
+        <h4>Can I disable specific payment methods?</h4>
+        <p>Yes, payment toggles are available in admin settings.</p>
+      </section>
+
+      <section id="support-handover" class="section">
+        <h3>Support & Handover</h3>
+        <p>
+          For client handover, include:
+        </p>
+        <ul>
+          <li>Live URLs and credentials handover file</li>
+          <li>Environment variable matrix</li>
+          <li>Deployment and rollback checklist</li>
+          <li>Screenshot pack for major workflows</li>
+          <li>Known limitations and roadmap notes</li>
+        </ul>
+        <div class="note">
+          <strong>Recommended add-on:</strong> publish this documentation on Netlify/Vercel and include the link on your marketplace listing.
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>© <span id="year"></span> Pink Dreams Documentation</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
