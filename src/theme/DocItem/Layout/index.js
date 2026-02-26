@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import {useWindowSize, useColorMode} from '@docusaurus/theme-common';
 import {
   useDoc,
@@ -136,7 +135,7 @@ function DocsContentHeader({onOpenSidebar}) {
 }
 
 function MobileSidebar({isOpen, onClose, sidebar, path}) {
-  const logoSrc = useBaseUrl(docsData?.brand?.logoPath || 'img/logo.svg');
+  const brandName = docsData?.brand?.name || 'Pink Dreams';
   const items = sidebar?.items || [];
 
   return (
@@ -147,16 +146,20 @@ function MobileSidebar({isOpen, onClose, sidebar, path}) {
       />
       <aside className={clsx('pd-mobile-sidebar', isOpen && 'is-open')}>
         <div className="pd-mobile-sidebar__header">
-          <Link to="/" className="pd-sidebar-brand__link" onClick={onClose}>
-            <img
-              src={logoSrc}
-              alt={docsData?.brand?.name || 'Pink Dreams'}
-              className="pd-sidebar-brand__logo"
-            />
-            <span className="pd-sidebar-brand__text">
-              {docsData?.brand?.name || 'Pink Dreams'}
-            </span>
-          </Link>
+          <div className="pd-sidebar-brand pd-sidebar-brand--mobile">
+            <Link to="/" className="pd-sidebar-brand__link" onClick={onClose}>
+              <div className="pd-sidebar-brand__mark-wrap">
+                <div className="pd-sidebar-brand__mark">
+                  <span className="pd-sidebar-brand__mark-letter">P</span>
+                </div>
+                <span className="pd-sidebar-brand__mark-badge" />
+              </div>
+              <div className="pd-sidebar-brand__meta">
+                <span className="pd-sidebar-brand__title">{brandName}</span>
+                <span className="pd-sidebar-brand__subtitle">Documentation</span>
+              </div>
+            </Link>
+          </div>
           <button
             type="button"
             className="pd-mobile-sidebar__close"
