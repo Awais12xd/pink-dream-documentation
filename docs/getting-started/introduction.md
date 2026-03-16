@@ -56,7 +56,6 @@ For first-time setup and deployment, follow this sequence:
 - Production deployment workflow.
 - End-to-end module usage from dashboard to settings.
 - CRUD and advanced operations (example: product Excel import/export, notification bulk actions, order exports, and bank transfer verification).
-- Screenshot placement guides for client-ready documentation packs.
 
 ## Support and Reference Links
 
