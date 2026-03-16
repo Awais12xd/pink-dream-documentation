@@ -51,11 +51,11 @@ Each notification can include:
 - Use pause mode for focused maintenance windows.
 
 <div className="doc-screenshot-guide">
-  <p>
+  <!-- <p>
     <strong>Screenshot guide:</strong> Capture notification bell dropdown showing
     read/unread styling differences and realtime toggle.
-  </p>
-  <div className="doc-screenshot-frame is-hidden">
+  </p> -->
+  <div className="doc-screenshot-frame ">
     <img
       src="/img/notificationbell.PNG"
       alt="Notification bell panel with read and unread items"
