@@ -13,6 +13,7 @@ Settings is the global configuration center for storefront behavior and operatio
 - **Payment**
 - **SEO**
 - **Contact**
+- **License**
 
 ## General Tab
 
@@ -57,11 +58,31 @@ Manages public business contact data:
 - Social links
 - Business hours by day
 
+## License Tab
+
+License tab is used to bind this installation with your issued commercial license.
+
+Capabilities:
+
+- View current license state (`active`, `inactive`, etc.).
+- View domain, environment, and last validation timestamp.
+- Activate license key.
+- Validate now (manual heartbeat / force re-check).
+- Deactivate license before migration to another host.
+- Review recent license audit events.
+
+Operational notes:
+
+- If environment compatibility warning appears, activate again after correcting server env.
+- Keep `LICENSE_STRICT_SECURITY=true` in production.
+- If activation fails, verify backend `LICENSE_*` plus `APP_PRIMARY_DOMAIN` and `APP_INSTANCE_ID`.
+
 ## Change Management Advice
 
 - Apply settings changes in low-traffic windows when possible.
 - Keep a screenshot/history record for payment configuration updates.
 - Re-test checkout after payment setting changes.
+- Re-run manual license validation after infrastructure/domain changes.
 
 <div className="doc-screenshot-guide">
   <!-- <p>
